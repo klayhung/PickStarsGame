@@ -1,0 +1,146 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "score_pop",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.8,
+  "sample": 25,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "score": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                0
+              ]
+            },
+            {
+              "frame": 0.48,
+              "value": [
+                0,
+                105
+              ]
+            },
+            {
+              "frame": 0.6,
+              "value": [
+                0,
+                80
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.12,
+              "value": 200
+            },
+            {
+              "frame": 0.6,
+              "value": 120
+            },
+            {
+              "frame": 0.8,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "pop": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.12,
+              "value": 1.5
+            },
+            {
+              "frame": 0.28,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.12,
+              "value": 1.5
+            },
+            {
+              "frame": 0.28,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.28,
+              "value": 200
+            },
+            {
+              "frame": 0.4,
+              "value": 0
+            }
+          ]
+        },
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0.12,
+                "value": {
+                  "__uuid__": "bbb636f8-8929-43b5-8307-c3ffa8f46057"
+                }
+              },
+              {
+                "frame": 0.16,
+                "value": {
+                  "__uuid__": "4e5fe15c-e8ab-47ee-a771-3ca5c667eff9"
+                }
+              },
+              {
+                "frame": 0.2,
+                "value": {
+                  "__uuid__": "ae1e0365-b05c-4db2-90b9-9e6c74827748"
+                }
+              },
+              {
+                "frame": 0.24,
+                "value": {
+                  "__uuid__": "2294ba51-f86d-484e-99ad-ce26fd17cda4"
+                }
+              },
+              {
+                "frame": 0.28,
+                "value": {
+                  "__uuid__": "fa5c6954-cedc-49a9-a802-c196ddf45b23"
+                }
+              },
+              {
+                "frame": 0.32,
+                "value": {
+                  "__uuid__": "2400ced7-d5fc-4bd8-97d5-52ff0c18d730"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0.8,
+      "func": "hideFx",
+      "params": []
+    }
+  ]
+}
