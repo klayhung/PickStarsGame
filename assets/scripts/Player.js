@@ -25,6 +25,7 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
   onLoad() {
+    cc.log('Player onLoad');
     this.enabled = false;
     this.accLeft = false;
     this.accRight = false;
@@ -42,11 +43,10 @@ cc.Class({
     cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
   },
 
-  start() {
-
-  },
+  // start() {},
 
   update(dt) {
+    cc.log('Player update');
     if (this.accLeft) {
       this.xSpeed -= this.accel * dt;
     } else if (this.accRight) {

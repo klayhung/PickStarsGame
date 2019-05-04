@@ -4,10 +4,10 @@ module.exports = {
         "es6": true
     },
     "extends": "airbnb-base",
-    "globals": {
-         "Atomics": "readonly",
-         "SharedArrayBuffer": "readonly",
-         'wz3': false,
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        'wz3': false,
          'cc': false,
          'Editor': false,
          'jsb': false,
@@ -18,14 +18,11 @@ module.exports = {
          'CC_BUILD': false,
          'CC_JSB': false,
          'CC_TEST': false,
-         },
+    },
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "vue"
-    ],
     "rules": {
     }
 };

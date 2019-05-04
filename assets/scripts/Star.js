@@ -50,4 +50,9 @@ cc.Class({
     this.game.gainScore(pos);
     this.node.destroy();
   },
+
+  timeOut() {
+    this.game.spawnNewStar();
+    this.node.destroy();
+  },
 });

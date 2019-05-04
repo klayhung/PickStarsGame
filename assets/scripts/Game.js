@@ -59,6 +59,18 @@ cc.Class({
       default: null,
       type: cc.Prefab,
     },
+
+    maxlifeHeartCounts: 3,
+
+    lifeHeartPrefab: {
+      default: null,
+      type: cc.Prefab,
+    },
+
+    deadHeartPrefab: {
+      default: null,
+      type: cc.Prefab,
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -70,10 +82,12 @@ cc.Class({
     this.enabled = false;
     this.progressBar.progress = 1;
     this.scorePool = new cc.NodePool('ScoreFx');
+    this.lifeHeartPool = new cc.NodePool('Heart');
+    this.deadHeartPool = new cc.NodePool('Heart');
+    // this.onStartGame();
   },
 
   start() {
-
   },
 
   onStartGame() {
@@ -83,13 +97,30 @@ cc.Class({
     this.enabled = true;
     this.player.getComponent('Player').startMoveAt(cc.v2(0, this.groundY));
     this.spawnNewStar();
+    this.initHeart();
   },
 
   update(dt) {
     if (this.timer > this.starDuration) {
-      this.gameOver();
+      const lifeHeartNode = this.lifeHeartNodes.pop();
+      if (this.deadHeartPool.size() > 0) {
+        const deadHeartNode = this.deadHeartPool.get();
+        deadHeartNode.setPosition(lifeHeartNode.getPosition());
+        this.node.addChild(deadHeartNode);
+        this.deadHeartNodes.push(deadHeartNode);
+      }
+      this.lifeHeartPool.put(lifeHeartNode);
+      this.timer = 0;
+
+      if (this.lifeHeartNodes.length === 0) {
+        this.gameOver();
+        return;
+      }
+
+      this.currentStar.getComponent('Star').timeOut();
       return;
     }
+
     this.timer += dt;
   },
 
@@ -135,6 +166,13 @@ cc.Class({
     this.currentStar.destroy();
     this.btnNode.x = 0;
     this.gameOverNode.active = true;
+
+    const counts = this.deadHeartNodes.length;
+    for (let i = 0; i < counts; i += 1) {
+      this.deadHeartPool.put(this.deadHeartNodes.pop());
+    }
+    this.deadHeartPool.clear();
+    this.lifeHeartPool.clear();
   },
 
   spawnScoreFx() {
@@ -150,5 +188,21 @@ cc.Class({
 
   despawnScoreFx(scoreFx) {
     this.scorePool.put(scoreFx);
+  },
+
+  initHeart() {
+    this.lifeHeartNodes = [];
+    this.deadHeartNodes = [];
+    for (let i = 0; i < this.maxlifeHeartCounts; i += 1) {
+      const lifeHeartNode = cc.instantiate(this.lifeHeartPrefab);
+      this.node.addChild(lifeHeartNode);
+      const lifeHeart = lifeHeartNode.getComponent('Heart');
+      lifeHeart.firstHeartPosX += (lifeHeart.spacingX * (i + 1));
+      lifeHeartNode.setPosition(cc.v2(lifeHeart.firstHeartPosX, lifeHeart.firstHeartPosY));
+      this.lifeHeartNodes.push(lifeHeartNode);
+
+      const deadHeart = cc.instantiate(this.deadHeartPrefab);
+      this.deadHeartPool.put(deadHeart);
+    }
   },
 });
