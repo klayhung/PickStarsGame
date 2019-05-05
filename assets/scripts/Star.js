@@ -17,13 +17,16 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad() {},
+  onLoad() {
+    cc.log('Star load');
+  },
 
   start() {
-
+    cc.log('Star start');
   },
 
   update() {
+    cc.log('Star update');
     if (this.getPlayerDistance() < this.pickRadius) {
       this.onPicked();
     }

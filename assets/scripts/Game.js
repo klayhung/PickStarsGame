@@ -40,10 +40,10 @@ cc.Class({
       type: cc.AudioClip,
     },
 
-    btnNode: {
-      default: null,
-      type: cc.Node,
-    },
+    // btnNode: {
+    //   default: null,
+    //   type: cc.Node,
+    // },
 
     gameOverNode: {
       default: null,
@@ -76,31 +76,38 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad() {
+    cc.log('Game onLoad');
     this.groundY = this.ground.y + this.ground.height / 2;
     this.timer = 0;
     this.starDuration = 0;
-    this.enabled = false;
     this.progressBar.progress = 1;
     this.scorePool = new cc.NodePool('ScoreFx');
     this.lifeHeartPool = new cc.NodePool('Heart');
     this.deadHeartPool = new cc.NodePool('Heart');
-    // this.onStartGame();
   },
 
   start() {
+    cc.log('Game start');
+    this.onStartGame();
+  },
+
+  onEnable() {
+    cc.log('Game enable');
   },
 
   onStartGame() {
     this.resetScore();
-    this.btnNode.x = 3000;
+    // this.btnNode.x = 3000;
     this.gameOverNode.active = false;
-    this.enabled = true;
     this.player.getComponent('Player').startMoveAt(cc.v2(0, this.groundY));
     this.spawnNewStar();
     this.initHeart();
   },
 
   update(dt) {
+    if (this.enabled === false) {
+      return;
+    }
     if (this.timer > this.starDuration) {
       const lifeHeartNode = this.lifeHeartNodes.pop();
       if (this.deadHeartPool.size() > 0) {
@@ -144,8 +151,6 @@ cc.Class({
   },
 
   gainScore(pos) {
-    // const prefa = cc.instantiate(this.scoreFxPrefab);
-    // const fx = prefa.getComponent('ScoreFx');
     const fx = this.spawnScoreFx();
     this.node.addChild(fx.node);
     fx.node.setPosition(pos);
@@ -163,9 +168,13 @@ cc.Class({
 
   gameOver() {
     this.player.getComponent('Player').stopMove();
+    this.player.destroy();
     this.currentStar.destroy();
-    this.btnNode.x = 0;
+    this.progressBar.node.destroy();
+    this.progressBar.destroy();
+    // this.btnNode.x = 0;
     this.gameOverNode.active = true;
+    this.enabled = false;
 
     const counts = this.deadHeartNodes.length;
     for (let i = 0; i < counts; i += 1) {
@@ -173,6 +182,7 @@ cc.Class({
     }
     this.deadHeartPool.clear();
     this.lifeHeartPool.clear();
+    cc.director.loadScene('main');
   },
 
   spawnScoreFx() {

@@ -26,7 +26,7 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
   onLoad() {
     cc.log('Player onLoad');
-    this.enabled = false;
+    // this.enabled = false;
     this.accLeft = false;
     this.accRight = false;
     this.xSpeed = 0;
@@ -43,7 +43,9 @@ cc.Class({
     cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
   },
 
-  // start() {},
+  start() {
+    cc.log('Player start');
+  },
 
   update(dt) {
     cc.log('Player update');
@@ -113,14 +115,12 @@ cc.Class({
   },
 
   startMoveAt(pos) {
-    this.enabled = true;
     this.xSpeed = 0;
     this.node.setPosition(pos);
     this.node.runAction(this.setJumpAction());
   },
 
   stopMove() {
-    this.enabled = false;
     this.node.stopAllActions();
   },
 });

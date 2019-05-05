@@ -17,4 +17,11 @@ cc.Class({
     firstHeartPosY: 0,
   },
 
+  onLoad() {
+    cc.log('Heart onLoad');
+  },
+
+  start() {
+    cc.log('Heart start');
+  },
 });

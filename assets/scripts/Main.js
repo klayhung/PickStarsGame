@@ -12,14 +12,17 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-
+    scoreDisplay: {
+      default: null,
+      type: cc.Label,
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   // onLoad () {},
 
-  onStartGame() {
+  onLoadGame() {
     cc.director.loadScene('game');
   },
 
