@@ -48,7 +48,7 @@ cc.Class({
   },
 
   update(dt) {
-    cc.log('Player update');
+    // cc.log('Player update');
     if (this.accLeft) {
       this.xSpeed -= this.accel * dt;
     } else if (this.accRight) {

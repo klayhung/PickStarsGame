@@ -12,25 +12,25 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    scoreDisplay: {
-      default: null,
-      type: cc.Label,
-    },
+    scoreRecord: 0,
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad() {
-    const recordNode = cc.find('record');
-    if (recordNode !== null) {
-      const scoreRecord = recordNode.getComponent('Record').getScoreRecord();
-      this.scoreDisplay.string = `Score: ${scoreRecord.getScoreRecord()}`;
-    }
+    cc.log('Record load');
+    cc.game.addPersistRootNode(this.node);
   },
 
-  onLoadGame() {
-    cc.director.loadScene('game');
+  start() {
+
   },
 
-  // update (dt) {},
+  setScoreRecord(score) {
+    this.scoreRecord = score;
+  },
+
+  getScoreRecord() {
+    return this.scoreRecord;
+  },
 });

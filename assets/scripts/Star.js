@@ -26,7 +26,7 @@ cc.Class({
   },
 
   update() {
-    cc.log('Star update');
+    // cc.log('Star update');
     if (this.getPlayerDistance() < this.pickRadius) {
       this.onPicked();
     }

@@ -71,6 +71,11 @@ cc.Class({
       default: null,
       type: cc.Prefab,
     },
+
+    record: {
+      default: null,
+      type: cc.Node,
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -157,12 +162,20 @@ cc.Class({
     fx.play();
 
     this.score += 1;
+    const recordNode = cc.find('record');
+    if (recordNode !== null) {
+      recordNode.getComponent('Record').setScoreRecord(this.score);
+    }
     this.scoreDisplay.string = `Score: ${this.score}`;
     cc.audioEngine.playEffect(this.scoreAudio, false);
   },
 
   resetScore() {
     this.score = 0;
+    const recordNode = cc.find('record');
+    if (recordNode !== null) {
+      recordNode.getComponent('Record').setScoreRecord(this.score);
+    }
     this.scoreDisplay.string = `Score: ${this.score}`;
   },
 
