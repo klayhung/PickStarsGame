@@ -12,33 +12,51 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    scoreDisplay: {
+    sprite: {
+      default: null,
+      type: cc.Sprite,
+    },
+
+    label: {
       default: null,
       type: cc.Label,
     },
 
-    gameOverNode: {
+    buttonText: {
+      default: 'Label',
+      formerlySerializedAs: '_N$string',
+      notify() {
+        this.label.string = this.buttonText;
+        this.label.node.setContentSize(this.buttonSize);
+      },
+    },
+
+    buttonTexture: {
       default: null,
-      type: cc.Node,
+      type: cc.SpriteFrame,
+      notify() {
+        this.sprite.spriteFrame = this.buttonTexture;
+        this.sprite.node.setContentSize(this.buttonSize);
+      },
+    },
+
+    buttonSize: {
+      default: cc.size(0, 0),
+      type: cc.Size,
+      notify() {
+        this.sprite.node.setContentSize(this.buttonSize);
+        this.label.node.setContentSize(this.buttonSize);
+      },
     },
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad() {
-    this.scoreDisplay.enabled = false;
-    const recordNode = cc.find('record');
-    if (recordNode !== null) {
-      const scoreRecord = recordNode.getComponent('Record');
-      this.scoreDisplay.string = `Score: ${scoreRecord.getScoreRecord()}`;
-      this.gameOverNode.active = true;
-      this.scoreDisplay.enabled = true;
-    }
+
   },
 
-  onLoadGame() {
-    cc.director.loadScene('game');
-  },
+  start() {
 
-  // update (dt) {},
+  },
 });
